@@ -1,0 +1,163 @@
+<!doctype html>
+<html lang="zh-Hant">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>115.09.20 護法會頒證｜波次與樓層區塊查詢示範第三版</title>
+  <style>
+    :root{--ink:#3d2718;--brown:#674229;--brown2:#8a5e36;--gold:#b9822d;--pale:#fbf3e4;--paper:#fffdf8;--line:#dfc9a7;--green:#3f725b;--red:#a24439;--blue:#496d83;--shadow:0 18px 45px rgba(79,47,20,.12)}
+    *{box-sizing:border-box}html{scroll-behavior:smooth}body{margin:0;color:var(--ink);background:radial-gradient(circle at 15% 0,#fff 0,transparent 30%),linear-gradient(145deg,#f5ead8,#fffaf0 55%,#efe0c5);font-family:"Microsoft JhengHei","Noto Sans TC",system-ui,sans-serif;min-height:100vh}
+    button,input{font:inherit}button{cursor:pointer}.shell{max-width:1180px;margin:auto;padding:22px}.hero{position:relative;overflow:hidden;background:linear-gradient(135deg,#55331f,#7f5432);color:white;border:1px solid #a77943;border-radius:24px;padding:28px 30px;box-shadow:var(--shadow)}
+    .hero:after{content:"✦";position:absolute;right:20px;top:-42px;font-size:160px;color:#fff1;transform:rotate(15deg)}.eyebrow{font-size:13px;letter-spacing:.18em;color:#f4d49c}.hero h1{margin:8px 0 6px;font-size:clamp(25px,4vw,42px);font-weight:800}.hero p{margin:0;color:#f8ead7;max-width:720px;line-height:1.7}.privacy{display:inline-flex;align-items:center;gap:7px;margin-top:16px;padding:7px 11px;border-radius:999px;background:#fff2;border:1px solid #ffffff38;font-size:13px}
+    .tabs{display:flex;gap:9px;margin:18px 0}.tab{border:1px solid var(--line);background:#fff9;padding:10px 16px;border-radius:999px;color:var(--brown);font-weight:700}.tab.active{background:var(--brown);color:white;border-color:var(--brown)}
+    .panel{display:none}.panel.active{display:block}.layout{display:grid;grid-template-columns:minmax(0,1.05fr) minmax(320px,.95fr);gap:18px}.card{background:rgba(255,253,248,.94);border:1px solid var(--line);border-radius:20px;box-shadow:0 10px 30px #6b461018;padding:22px}.card h2,.card h3{margin:0 0 7px}.muted{color:#796b5d;font-size:14px;line-height:1.65}
+    .form-grid{display:grid;grid-template-columns:1fr 1fr;gap:13px;margin-top:19px}.field label{display:block;font-size:13px;font-weight:700;margin:0 0 6px}.field input{width:100%;border:1px solid #cdb895;border-radius:11px;padding:12px 13px;background:white;color:var(--ink);outline:none}.field input:focus{border-color:var(--gold);box-shadow:0 0 0 3px #b9822d25}.field.phone{grid-column:1/-1}.search-btn{grid-column:1/-1;border:0;border-radius:12px;padding:13px 16px;background:linear-gradient(135deg,#8f622e,#b88433);color:white;font-weight:800;box-shadow:0 8px 18px #8c5c2735}.search-btn:hover{filter:brightness(1.04)}
+    .examples{margin-top:17px;padding-top:15px;border-top:1px dashed var(--line)}.examples span{display:block;font-size:12px;color:#75685c;margin-bottom:8px}.chip{border:1px solid #d8c3a1;background:#fffaf1;color:#684423;border-radius:999px;padding:7px 10px;margin:0 5px 5px 0;font-size:12px}.chip:hover{background:#f2e2c6}
+    .result{min-height:100%;display:flex;flex-direction:column}.result-empty{margin:auto;text-align:center;padding:35px 12px}.lotus{font-size:48px;color:var(--gold);line-height:1}.result-empty h3{margin:12px 0 5px}.result-body{display:none}.result.show .result-empty{display:none}.result.show .result-body{display:block}.status{display:flex;align-items:center;justify-content:space-between;gap:12px;border-bottom:1px solid var(--line);padding-bottom:14px;margin-bottom:15px}.badge{display:inline-flex;border-radius:999px;padding:6px 10px;font-size:12px;font-weight:800;background:#e7f2eb;color:var(--green)}
+    .person{font-size:22px;font-weight:800}.person small{font-size:14px;font-weight:500;color:#796b5d;margin-left:6px}.assignment{display:grid;grid-template-columns:1fr 1fr;gap:12px}.assignment-box{background:var(--pale);border:1px solid #ead6b5;border-radius:16px;padding:16px}.assignment-box .label{font-size:12px;color:#806d59}.assignment-box b{display:block;font-size:27px;color:var(--brown);margin-top:2px}.assignment-box p{margin:4px 0 0;font-size:13px;color:#76695b}.wide{grid-column:1/-1}.steps{margin:15px 0 0;padding:0;list-style:none}.steps li{position:relative;padding:7px 0 7px 25px;font-size:14px}.steps li:before{content:"✓";position:absolute;left:0;color:var(--green);font-weight:900}
+    .not-found{display:none;background:#fff5f2;border:1px solid #efc9c2;border-radius:14px;padding:16px;margin-top:15px;color:#6e352e}.not-found.show{display:block}.security-note{margin-top:16px;background:#f3f6f7;border-left:4px solid var(--blue);padding:12px 13px;font-size:13px;line-height:1.6;color:#465861}
+    .flow{display:grid;grid-template-columns:repeat(5,1fr);gap:9px;margin-top:18px}.node{position:relative;text-align:center;padding:15px 10px;background:white;border:1px solid var(--line);border-radius:14px;font-size:13px}.node strong{display:block;color:var(--brown);font-size:15px;margin-bottom:4px}.node:not(:last-child):after{content:"→";position:absolute;right:-13px;top:37%;z-index:2;color:var(--gold);font-weight:900;font-size:20px}.node.secure{background:#fff1ef;border-color:#e5b9b1}.node.public{background:#edf5ef;border-color:#bad1c1}
+    .db-grid{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-top:18px}.schema{overflow:auto}.schema table,.admin-table{width:100%;border-collapse:collapse;font-size:13px}.schema th,.schema td,.admin-table th,.admin-table td{text-align:left;padding:9px 8px;border-bottom:1px solid #eadfce}.schema th,.admin-table th{color:var(--brown);background:#f7ead5}.yes{color:var(--green);font-weight:800}.no{color:var(--red);font-weight:800}
+    .kpis{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin:15px 0}.kpi{background:var(--pale);border:1px solid var(--line);border-radius:14px;padding:13px}.kpi span{font-size:12px;color:#796b5d}.kpi b{display:block;font-size:23px;color:var(--brown);margin-top:3px}.capacity{display:grid;gap:9px;margin-top:12px}.cap-row{display:grid;grid-template-columns:100px 1fr 72px;gap:10px;align-items:center;font-size:13px}.bar{height:10px;background:#eadfcd;border-radius:999px;overflow:hidden}.bar i{display:block;height:100%;background:linear-gradient(90deg,#9a6d34,#c28d39);border-radius:999px}.bar.private i{background:linear-gradient(90deg,#7a4255,#b66880)}
+    .admin-actions{display:flex;gap:9px;flex-wrap:wrap;margin:15px 0}.action{border:1px solid var(--line);border-radius:10px;padding:9px 12px;background:white;color:var(--brown);font-weight:700}.action.primary{background:var(--brown);color:white}.lock{font-size:12px;color:#735f4f}.footer{text-align:center;color:#776b5f;font-size:12px;padding:22px 10px 8px}
+    @media(max-width:820px){.layout,.db-grid{grid-template-columns:1fr}.flow{grid-template-columns:1fr}.node:not(:last-child):after{content:"↓";right:auto;left:49%;top:auto;bottom:-17px}.kpis{grid-template-columns:1fr 1fr}.shell{padding:12px}.hero{padding:22px 20px}.form-grid{grid-template-columns:1fr}.field.phone{grid-column:auto}.search-btn{grid-column:auto}.assignment{grid-template-columns:1fr}.wide{grid-column:auto}}
+  </style>
+</head>
+<body>
+  <main class="shell">
+    <section class="hero">
+      <div class="eyebrow">PUJUE CEREMONY · DEMO</div>
+      <h1>波次與樓層區塊查詢</h1>
+      <p>115年9月20日護法會頒證｜一般與會者顯示領證波次及入座區域；親友只顯示與聯絡人一起安排的入座區域。</p>
+      <div class="privacy">🔒 示範頁使用虛構資料，未連接真實名冊</div>
+    </section>
+
+    <nav class="tabs" aria-label="示範功能切換">
+      <button class="tab active" data-panel="lookup">個人查詢畫面</button>
+      <button class="tab" data-panel="admin">資料組後臺</button>
+      <button class="tab" data-panel="architecture">資料庫連結</button>
+    </nav>
+
+    <section id="lookup" class="panel active">
+      <div class="layout">
+        <article class="card">
+          <h2>查詢我的安排</h2>
+          <p class="muted">請輸入報名時填寫的姓名與法名；親友沒有法名時，請在表單與查詢頁統一填寫「無」。親友不領證，因此查詢結果不會顯示波次。</p>
+          <form id="lookupForm" class="form-grid">
+            <div class="field"><label for="name">姓名</label><input id="name" autocomplete="name" placeholder="例如：示範學員"></div>
+            <div class="field"><label for="dharma">法名</label><input id="dharma" placeholder="例如：法安"></div>
+            <button class="search-btn" type="submit">查詢我的安排</button>
+          </form>
+          <div class="examples"><span>快速填入示範資料</span>
+            <button class="chip" type="button" data-demo="general">一般人員（查得到）</button>
+            <button class="chip" type="button" data-demo="friend">親友／無法名（查得到）</button>
+            <button class="chip" type="button" data-demo="vip">貴賓（查不到）</button>
+            <button class="chip" type="button" data-demo="unknown">資料不符</button>
+          </div>
+          <div id="notFound" class="not-found"><strong>查無可公開資料</strong><br>請確認姓名與法名，或洽現場服務人員。為保護隱私，系統不會說明是否屬於貴賓或機密資料。</div>
+          <div class="security-note">正式系統不會把完整名單下載到手機；每次送出姓名與法名後，由查詢API精確比對。一般人員回傳波次與樓層／區塊，親友只回傳樓層／區塊。</div>
+        </article>
+
+        <article id="result" class="card result" aria-live="polite">
+          <div class="result-empty"><div class="lotus">❧</div><h3>尚未查詢</h3><p class="muted">查詢結果會顯示在這裡。</p></div>
+          <div class="result-body">
+            <div class="status"><div><div id="resultName" class="person"></div><div class="muted">報名資料已確認</div></div><span class="badge">安排完成</span></div>
+            <div class="assignment">
+              <div id="waveBox" class="assignment-box"><span class="label">領證波次</span><b id="resultWave"></b><p>請留意跑馬燈與現場引導</p></div>
+              <div class="assignment-box"><span class="label">入座樓層</span><b id="resultFloor"></b><p id="resultBlock"></p></div>
+            </div>
+            <p id="resultNote" class="muted"></p>
+            <ul id="resultSteps" class="steps"></ul>
+          </div>
+        </article>
+      </div>
+    </section>
+
+    <section id="admin" class="panel">
+      <article class="card">
+        <h2>資料組後臺示意</h2><p class="muted">自動安排只處理尚未鎖定的人員；人工指定的樓層／區塊會保留。親友會先依聯絡人配對，再安排到同一樓層／區塊。下列均為虛構統計。</p>
+        <div class="kpis"><div class="kpi"><span>有效報名</span><b>286</b></div><div class="kpi"><span>親友報名</span><b>36</b></div><div class="kpi"><span>貴賓／機密</span><b>42</b></div><div class="kpi"><span>待人工處理</span><b>12</b></div></div>
+        <div class="admin-actions"><button class="action primary" id="autoAssign">自動安排未鎖定人員</button><button class="action" id="toggleLock">鎖定／解鎖所選安排</button><span id="actionMessage" class="lock">尚未執行示範操作</span></div>
+        <div class="db-grid">
+          <div><h3>樓層容量</h3><div class="capacity">
+            <div class="cap-row"><strong>6F 主壇</strong><div class="bar private"><i style="width:78%"></i></div><span>47 / 60</span></div>
+            <div class="cap-row"><strong>5F</strong><div class="bar"><i style="width:84%"></i></div><span>92 / 110</span></div>
+            <div class="cap-row"><strong>4F</strong><div class="bar"><i style="width:72%"></i></div><span>79 / 110</span></div>
+            <div class="cap-row"><strong>7F</strong><div class="bar"><i style="width:58%"></i></div><span>56 / 96</span></div>
+          </div>
+          <div><h3>分配原則</h3><ol class="muted"><li>人工鎖定及貴賓6F優先</li><li>扣除各樓層預留席</li><li>親友跟隨已連結的聯絡人樓層／區塊</li><li>盡量讓同組安排在同樓層、同區塊</li><li>聯絡人重名、未報名或容量不足送人工確認</li></ol></div>
+        </div>
+        <div style="overflow:auto;margin-top:17px"><table class="admin-table"><thead><tr><th>組別</th><th>報名人數</th><th>樓層／區塊</th><th>安排方式</th><th>狀態</th></tr></thead><tbody>
+          <tr><td>貴賓</td><td>42</td><td>6F 主壇區</td><td>優先規則</td><td class="no">機密</td></tr>
+          <tr><td>安全組</td><td>18</td><td>3F 義工區</td><td>人工鎖定</td><td class="yes">已鎖定</td></tr>
+          <tr><td>資料組</td><td>14</td><td>5F B區</td><td>系統自動</td><td class="yes">已安排</td></tr>
+          <tr><td>親友</td><td>36</td><td>依各自聯絡人</td><td>聯絡人同區</td><td class="yes">34位已連結</td></tr>
+          <tr><td>正進班</td><td>23</td><td>4F A區</td><td>整組手動</td><td class="yes">已安排</td></tr>
+          <tr><td>心燈組</td><td>21</td><td>5F A區</td><td>最後波次</td><td>待確認</td></tr>
+        </tbody></table></div>
+      </article>
+    </section>
+
+    <section id="architecture" class="panel">
+      <article class="card">
+        <h2>資料庫如何連結</h2><p class="muted">完整名冊、職務、貴賓及「聯絡人姓名」仍留在地端；地端先完成親友連結與座位安排，再把不可逆查詢鍵、是否顯示波次、波次、樓層與區塊匯出到雲端。公開查詢的隱私過濾在匯出前及API端各執行一次。</p>
+        <div class="flow">
+          <div class="node"><strong>Google表單</strong>報名與異動</div>
+          <div class="node"><strong>地端同步</strong>Sheets API唯讀下載</div>
+          <div class="node secure"><strong>地端主DB</strong>名冊、職務、貴賓</div>
+          <div class="node"><strong>排程與過濾</strong>親友連結、排除機密</div>
+          <div class="node public"><strong>雲端查詢API</strong>雜湊鍵＋可公開安排</div>
+        </div>
+        <div class="db-grid">
+          <div class="schema"><h3>主資料庫主要欄位</h3><table><thead><tr><th>資料</th><th>後臺</th><th>個人查詢</th></tr></thead><tbody>
+            <tr><td>姓名、法名</td><td class="yes">可用</td><td>送至API比對，不列入回傳內容</td></tr>
+            <tr><td>全部職務／組別</td><td class="yes">可看</td><td class="no">不回傳</td></tr>
+            <tr><td>貴賓與隱私等級</td><td class="yes">可看</td><td class="no">完全排除</td></tr>
+            <tr><td>聯絡人姓名／連結狀態</td><td class="yes">地端配對</td><td class="no">不送雲端、不回傳</td></tr>
+            <tr><td>單一波次</td><td class="yes">可看／修改</td><td class="yes">一般人員回傳；親友不回傳</td></tr>
+            <tr><td>樓層／區塊</td><td class="yes">可看／修改</td><td class="yes">回傳本人</td></tr>
+            <tr><td>組別、職務、證書張數</td><td class="yes">可看</td><td class="no">不回傳</td></tr>
+          </tbody></table></div>
+          <div><h3>雲端最小資料</h3><p class="muted">雲端資料表不放姓名、法名或聯絡人姓名，而是由地端程式用秘密金鑰產生查詢雜湊。建議只保留：</p><ol class="muted"><li>活動代碼</li><li>姓名＋法名的HMAC查詢雜湊</li><li>是否顯示波次（show_wave）</li><li>單一波次（親友留空）</li><li>樓層</li><li>區塊</li><li>是否啟用</li></ol></div>
+        </div>
+      </article>
+    </section>
+    <div class="footer">115.09.20 護法會頒證｜地端查詢系統概念示範</div>
+  </main>
+
+  <script>
+    const demoRecords = [
+      {name:"示範學員",dharma:"法安",privacy:"一般",lookup:true,showWave:true,wave:"第7波",floor:"5F",block:"B區・靠後區塊",friend:false},
+      {name:"示範親友",dharma:"無",privacy:"一般",lookup:true,showWave:false,wave:"",floor:"4F",block:"A區・中段區塊",friend:true},
+      {name:"示範貴賓",dharma:"傳德",privacy:"機密",lookup:false,showWave:false,wave:"",floor:"6F",block:"主壇區",friend:false}
+    ];
+    const $=selector=>document.querySelector(selector);
+    document.querySelectorAll('.tab').forEach(button=>button.addEventListener('click',()=>{
+      document.querySelectorAll('.tab').forEach(item=>item.classList.toggle('active',item===button));
+      document.querySelectorAll('.panel').forEach(panel=>panel.classList.toggle('active',panel.id===button.dataset.panel));
+    }));
+    document.querySelectorAll('[data-demo]').forEach(button=>button.addEventListener('click',()=>{
+      const values={general:["示範學員","法安"],friend:["示範親友","無"],vip:["示範貴賓","傳德"],unknown:["資料不符","法名"]}[button.dataset.demo];
+      ['#name','#dharma'].forEach((selector,index)=>$(selector).value=values[index]);
+      $('#lookupForm').requestSubmit();
+    }));
+    $('#lookupForm').addEventListener('submit',event=>{
+      event.preventDefault();
+      const name=$('#name').value.trim(),dharma=$('#dharma').value.trim();
+      const matches=demoRecords.filter(item=>item.name===name&&item.dharma===dharma&&item.privacy!=="機密"&&item.lookup);
+      const record=matches.length===1?matches[0]:null;
+      $('#notFound').classList.toggle('show',!record);$('#result').classList.toggle('show',Boolean(record));
+      if(!record)return;
+      $('#resultName').innerHTML=`${record.name}<small>${record.dharma}</small>`;
+      $('#waveBox').style.display=record.showWave?'block':'none';
+      $('#resultWave').textContent=record.wave;$('#resultFloor').textContent=record.floor;$('#resultBlock').textContent=record.block;
+      $('#resultNote').textContent=record.friend?'已依聯絡人安排同一樓層／區塊；聯絡人姓名不會顯示於公開查詢。':'';
+      $('#resultSteps').innerHTML=record.friend
+        ? '<li>請至指定樓層與區塊，與聯絡人一同入座</li><li>親友不參與領證集合，不需要查看波次</li>'
+        : '<li>請先至指定樓層與區塊入座</li><li>跑馬燈顯示波次時，依心燈組引導集合</li><li>每人只上台一次，一次領取全部證書</li>';
+    });
+    $('#autoAssign').addEventListener('click',()=>{$('#actionMessage').textContent='示範：已安排8位未鎖定人員，4位送人工確認';});
+    $('#toggleLock').addEventListener('click',()=>{$('#actionMessage').textContent='示範：所選安排已切換鎖定狀態';});
+  </script>
+</body>
+</html>
